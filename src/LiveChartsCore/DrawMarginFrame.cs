@@ -36,6 +36,7 @@ public abstract class DrawMarginFrame<TDrawingContext> : ChartElement<TDrawingCo
 {
     private IPaint<TDrawingContext>? _stroke = null;
     private IPaint<TDrawingContext>? _fill = null;
+    private IPaint<TDrawingContext>? _backImage = null;
 
     /// <summary>
     /// Gets or sets the stroke.
@@ -59,6 +60,18 @@ public abstract class DrawMarginFrame<TDrawingContext> : ChartElement<TDrawingCo
     {
         get => _fill;
         set => SetPaintProperty(ref _fill, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the background image.
+    /// </summary>
+    /// <value>
+    /// The background image.
+    /// </value>
+    public IPaint<TDrawingContext>? BackImage
+    {
+        get => _backImage;
+        set => SetPaintProperty(ref _backImage, value);
     }
 
     /// <summary>
@@ -108,6 +121,7 @@ public abstract class DrawMarginFrame<TSizedGeometry, TDrawingContext> : DrawMar
 {
     private TSizedGeometry? _fillSizedGeometry;
     private TSizedGeometry? _strokeSizedGeometry;
+    private TSizedGeometry? _backImageGeometry;
     private bool _isInitialized = false;
 
     /// <summary>
@@ -147,6 +161,20 @@ public abstract class DrawMarginFrame<TSizedGeometry, TDrawingContext> : DrawMar
 
             Stroke.AddGeometryToPaintTask(chart.Canvas, _strokeSizedGeometry);
             chart.Canvas.AddDrawableTask(Stroke);
+        }
+
+        if (BackImage is not null)
+        {
+            BackImage.ZIndex = -2.5;
+            _backImageGeometry ??= new TSizedGeometry();
+
+            _backImageGeometry.X = drawLocation.X;
+            _backImageGeometry.Y = drawLocation.Y;
+            _backImageGeometry.Width = drawMarginSize.Width;
+            _backImageGeometry.Height = drawMarginSize.Height;
+
+            BackImage.AddGeometryToPaintTask(chart.Canvas, _backImageGeometry);
+            chart.Canvas.AddDrawableTask(BackImage);
         }
 
         if (!_isInitialized)
