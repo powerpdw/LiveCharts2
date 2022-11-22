@@ -119,11 +119,12 @@ public class ScatterSeries<TModel, TVisual, TLabel, TDrawingContext>
         var uwx = xScale.MeasureInPixels(secondaryAxis.UnitWidth);
         var uwy = yScale.MeasureInPixels(secondaryAxis.UnitWidth);
 
+        //Changes to correct problems where tooltips are not displayed properly in a range of less than 1
+        //uwx = uwx < gs ? gs : uwx;
+        //uwy = uwy < gs ? gs : uwy;
+        uwx = (uwx > 1) ? (gs + 2) : (uwx < gs ? gs : uwx);
+        uwy = (uwy > 1) ? (gs + 2) : (uwy < gs ? gs : uwy);
 
-        uwx = uwx < gs ? gs : uwx;
-        uwy = uwy < gs ? gs : uwy;
-
-        
 
         foreach (var point in Fetch(cartesianChart))
         {
