@@ -1,5 +1,6 @@
 ﻿using LiveChartsCore;
 using LiveChartsCore.Defaults;
+using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace ViewModelsSamples.Scatter.BackImage;
 
 public class ViewModel
 {
+    public List<ICartesianAxis> XAxes { get; set; }
+
+    public List<ICartesianAxis> YAxes { get; set; }
+    
     public IEnumerable<ISeries> Series { get; set; } = new ObservableCollection<ISeries>
     {
         new ScatterSeries<ObservablePoint>
@@ -37,6 +42,7 @@ public class ViewModel
         //var filePath = System.IO.Path.Combine(dirPath, @"Scatter\BackImage", "family.png");
         var bitmap = SkiaSharp.SKBitmap.Decode(filePath);
 
+        
         var imgFormat = BackgroundImage.ImageFormat.RGB8;
 #pragma warning disable IDE0010 // Add missing cases
         switch (bitmap.ColorType)
@@ -60,6 +66,7 @@ public class ViewModel
                 break;
         }
 
+
         backImagePaintTask.BackImage = new BackgroundImage(imgFormat, bitmap.Bytes, bitmap.Width, bitmap.Height, 70)
         {
             //MappingWithData.
@@ -73,5 +80,31 @@ public class ViewModel
             //Stretch image to the chart space.
             //RenderMode = BackgroundImage.ImageRenderMode.Stretch,
         };
+
+        XAxes = new List<ICartesianAxis>
+            {
+                new Axis
+                {
+                    Name = "X",
+                    TextSize = 16,
+                    MaxLimit = 0.7,
+                    MinLimit = 0,
+                    UnitWidth = 0.1f,
+                    Position = LiveChartsCore.Measure.AxisPosition.Start
+                }
+            };
+
+        YAxes = new List<ICartesianAxis>
+            {
+                new Axis
+                {
+                    Name = "Y",
+                    TextSize = 16,
+                    MaxLimit = 0.7,
+                    MinLimit = 0,
+                    UnitWidth = 0.1f,
+                    Position = LiveChartsCore.Measure.AxisPosition.End
+                }
+            };
     }
 }

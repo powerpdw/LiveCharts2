@@ -21,8 +21,8 @@ public partial class ViewModel
 
         for (var i = 0; i < 20; i++)
         {
-            values1.Add(new ObservablePoint(r.Next(0, 20), r.Next(0, 20)));
-            values2.Add(new ObservablePoint(r.Next(0, 20), r.Next(0, 20)));
+            values1.Add(new ObservablePoint(r.NextDouble(), r.NextDouble()));
+            values2.Add(new ObservablePoint(r.NextDouble(), r.NextDouble()));
         }
 
         Series = new ISeries[]
@@ -33,8 +33,8 @@ public partial class ViewModel
             new ScatterSeries<ObservablePoint, RoundedRectangleGeometry>
             {
                 Values = values1,
-                Stroke = null,
-                GeometrySize = 40,
+                //Stroke = null,
+                GeometrySize = 40
             },
 
             // Or Define your own SVG geometry
@@ -42,7 +42,7 @@ public partial class ViewModel
             {
                 Values = values2,
                 GeometrySize = 40,
-                Stroke = null,
+                //Stroke = null,
                 Fill = new SolidColorPaint(SKColors.DarkOliveGreen)
             }
         };
