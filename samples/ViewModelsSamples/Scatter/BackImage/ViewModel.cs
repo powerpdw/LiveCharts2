@@ -3,9 +3,11 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 
 namespace ViewModelsSamples.Scatter.BackImage;
 
@@ -37,12 +39,11 @@ public class ViewModel
         DrawMarginFrame.BackImage = new BackImagePaintTask();
         var backImagePaintTask = (BackImagePaintTask)DrawMarginFrame.BackImage;
         var dirPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        var filePath = System.IO.Path.Combine(dirPath, @"Scatter\BackImage", "CIE1975.png");
+        var filePath = System.IO.Path.Combine(dirPath, @"Scatter\BackImage", "CIE1976.png");
         //var filePath = System.IO.Path.Combine(dirPath, @"Scatter\BackImage", "wood.png");
         //var filePath = System.IO.Path.Combine(dirPath, @"Scatter\BackImage", "family.png");
         var bitmap = SkiaSharp.SKBitmap.Decode(filePath);
 
-        
         var imgFormat = BackgroundImage.ImageFormat.RGB8;
 #pragma warning disable IDE0010 // Add missing cases
         switch (bitmap.ColorType)

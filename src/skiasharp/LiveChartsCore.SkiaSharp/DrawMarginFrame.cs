@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.IO;
 using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView.Drawing;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
@@ -63,7 +64,15 @@ public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawi
             {
                 if (paintTask.BackImageBitmap == null)
                 {
-                    var bitmap = new SKBitmap(new SKImageInfo(paintTask.BackImage.Width, paintTask.BackImage.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul));
+                    SKBitmap bitmap;
+                    if((paintTask.BackImage.Format != BackgroundImage.ImageFormat.RGBA8) && (paintTask.BackImage.Format != BackgroundImage.ImageFormat.BGRA8))
+                    {
+                        bitmap = new SKBitmap(new SKImageInfo(paintTask.BackImage.Width, paintTask.BackImage.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul));
+                    }
+                    else
+                    {
+                        bitmap = new SKBitmap(new SKImageInfo(paintTask.BackImage.Width, paintTask.BackImage.Height, SKColorType.Rgba8888, SKAlphaType.Premul));
+                    }
 
                     unsafe
                     {
@@ -72,6 +81,11 @@ public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawi
                             bitmap.SetPixels((IntPtr)ptr);
                         }
                     }
+
+                    //FileStream fs = new FileStream("D:\\test.png", FileMode.Create);
+                    //bitmap.Encode(fs, SKEncodedImageFormat.Png, 100);
+                    //fs.Close();
+
                     paintTask.BackImageBitmap = bitmap;
                 }
                 BackgroundImage.ImageRenderMode renderMode;
@@ -158,10 +172,12 @@ public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawi
                             var roi = new SKRectI(cropLeftPixel, cropTopPixel, cropRightPixel, cropBottomPixel);
 
                             using var croppedBitmap = new SKBitmap(new SKImageInfo(cropRightPixel - cropLeftPixel + 1, cropBottomPixel - cropTopPixel + 1, SKColorType.Rgba8888));
+
                             if (paintTask.BackImageBitmap.ExtractSubset(croppedBitmap, roi) == false)
                             {
                                 System.Diagnostics.Debug.Assert(false);
                             }
+
                             //resize the cropped image.
                             var xScale = (cropRight - cropLeft) / (rightLimit - leftLimit);
                             var yScale = (cropTop - cropBottom) / (topLimit - bottomLimit);
@@ -179,7 +195,9 @@ public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawi
                             var offsetY = (topLimit - cropTop) / (topLimit - bottomLimit) * height;
                             var offsetX = (cropLeft - leftLimit) / (rightLimit - leftLimit) * width;
                             canvas.DrawBitmap(croppedBitmapResized, (float)offsetX, (float)offsetY);
+                            
                             croppedBitmapResized.Dispose();
+                            
                         }
                     }
                     #endregion

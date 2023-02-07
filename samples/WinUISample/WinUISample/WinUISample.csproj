@@ -84,6 +84,7 @@
     <None Remove="Polar\Coordinates\View.xaml" />
     <None Remove="Polar\RadialArea\View.xaml" />
     <None Remove="Scatter\AutoUpdate\View.xaml" />
+    <None Remove="Scatter\BackImage\CIE1976.png" />
     <None Remove="Scatter\BackImage\View.xaml" />
     <None Remove="Scatter\Basic\View.xaml" />
     <None Remove="Scatter\Bubbles\View.xaml" />
@@ -114,6 +115,9 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Scatter\BackImage\CIE1976.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -133,9 +137,6 @@
     <ProjectReference Include="..\..\ViewModelsSamples\ViewModelsSamples.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Scatter\BackImage\CIE1975.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Scatter\BackImage\family.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

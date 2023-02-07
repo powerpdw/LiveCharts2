@@ -142,14 +142,16 @@ namespace LiveChartsCore
                     ImageBuffer = RgbToRgba(imageBuffer, width, height);
                     break;
                 case ImageFormat.RGBA8:
+                    //Already has alpha channel
                     if (imageBuffer.Length != width * height * 4) { return; }
-                    ImageBuffer = RgbaToRgba(imageBuffer, width, height);
+                    Array.Copy(imageBuffer, ImageBuffer, imageBuffer.Length);
                     break;
                 case ImageFormat.BGR8:
                     if (imageBuffer.Length != width * height * 3) { return; }
                     ImageBuffer = BgrToRgba(imageBuffer, width, height);
                     break;
                 case ImageFormat.BGRA8:
+                    //Already has alpha channel
                     if (imageBuffer.Length != width * height * 4) { return; }
                     ImageBuffer = BgraToRgba(imageBuffer, width, height);
                     break;
@@ -254,15 +256,16 @@ namespace LiveChartsCore
         /// <returns></returns>
         private byte[] BgraToRgba(byte[] bgra, int width, int height)
         {
-            var isUseExistOpacity = Opacity < 0;
-            var opacityScale = isUseExistOpacity ? 0 : Opacity / 100f;
+            //var isUseExistOpacity = Opacity < 0;
+            //var opacityScale = isUseExistOpacity ? 0 : Opacity / 100f;
             var arrRgba = new byte[width * height * 4];
             for (var i = 0; i < bgra.Length; i++)
             {
                 arrRgba[i] = bgra[i + 2];
                 arrRgba[++i] = bgra[i];
                 arrRgba[++i] = bgra[i - 2];
-                arrRgba[++i] = isUseExistOpacity ? bgra[i] : (byte)(0xFF * opacityScale);
+                arrRgba[++i] = bgra[i];
+                //arrRgba[++i] = isUseExistOpacity ? bgra[i] : (byte)(0xFF * opacityScale);
             }
             return arrRgba;
         }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
@@ -18,7 +18,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
     <RepositoryUrl>https://github.com/beto-rodriguez/LiveCharts2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -60,6 +60,7 @@
     </Page>
     <Page Update="DefaultTooltip.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
     <Page Update="PieChart.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -67,6 +68,7 @@
     </Page>
     <Page Update="CartesianChart.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
     <Page Update="GeoMap.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -76,6 +78,7 @@
     </Page>
     <Page Update="DefaultLegend.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
   </ItemGroup>
 
