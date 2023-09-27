@@ -35,23 +35,23 @@ namespace LiveChartsCore.SkiaSharpView;
 /// </summary>
 public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawingContext>
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawMarginFrame"/> class.
-    /// </summary>
-    public DrawMarginFrame()
-    {
-        if (!LiveCharts.IsConfigured) LiveCharts.Configure(LiveChartsSkiaSharp.DefaultPlatformBuilder);
-        var stylesBuilder = LiveCharts.CurrentSettings.GetTheme<SkiaSharpDrawingContext>();
-        var initializer = stylesBuilder.GetVisualsInitializer();
+    ///// <summary>
+    ///// Initializes a new instance of the <see cref="DrawMarginFrame"/> class.
+    ///// </summary>
+    //public DrawMarginFrame()
+    //{
+    //    if (!LiveCharts.IsConfigured) LiveCharts.Configure(LiveChartsSkiaSharp.DefaultPlatformBuilder);
+    //    var stylesBuilder = LiveCharts.CurrentSettings.GetTheme<SkiaSharpDrawingContext>();
+    //    var initializer = stylesBuilder.GetVisualsInitializer();
 
-        foreach (var rule in initializer.DrawMarginFrameBuilder) rule(this);
-    }
+    //    foreach (var rule in initializer.DrawMarginFrameBuilder) rule(this);
+    //}
 
     /// <summary>
     /// Measures the specified chart.
     /// </summary>
     /// <param name="chart">The chart.</param>
-    public override void Measure(Chart<SkiaSharpDrawingContext> chart)
+    public override void Invalidate(Chart<SkiaSharpDrawingContext> chart)
     {
         if (BackImage != null)
         {
@@ -261,6 +261,6 @@ public class DrawMarginFrame : DrawMarginFrame<RectangleGeometry, SkiaSharpDrawi
             }
         }
 
-        base.Measure(chart);
+        base.Invalidate(chart);
     }
 }
