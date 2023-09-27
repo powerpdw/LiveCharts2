@@ -62,7 +62,7 @@ public sealed partial class GeoMap : UserControl, IGeoMapView<SkiaSharpDrawingCo
         PointerExited += OnPointerExited;
 
         SizeChanged += GeoMap_SizeChanged;
-
+        
         _seriesObserver = new CollectionDeepObserver<IGeoSeries>(
             (object? sender, NotifyCollectionChangedEventArgs e) => _core?.Update(),
             (object? sender, PropertyChangedEventArgs e) => _core.Update(),

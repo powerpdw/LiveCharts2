@@ -144,27 +144,27 @@ public class BackImagePaintTask : PaintTask
     /// <inheritdoc cref="IPaint{TDrawingContext}.InitializeTask(TDrawingContext)" />
     public override void InitializeTask(SkiaSharpDrawingContext drawingContext)
     {
-        skiaPaint ??= new SKPaint();
+        _skiaPaint ??= new SKPaint();
 
-        skiaPaint.Color = Color;
-        skiaPaint.IsAntialias = IsAntialias;
-        skiaPaint.IsStroke = IsStroke;
-        skiaPaint.StrokeCap = StrokeCap;
-        skiaPaint.StrokeJoin = StrokeJoin;
-        skiaPaint.StrokeMiter = StrokeMiter;
-        skiaPaint.StrokeWidth = StrokeThickness;
-        skiaPaint.Style = IsStroke ? SKPaintStyle.Stroke : SKPaintStyle.Fill;
+        _skiaPaint.Color = Color;
+        _skiaPaint.IsAntialias = IsAntialias;
+        _skiaPaint.IsStroke = IsStroke;
+        _skiaPaint.StrokeCap = StrokeCap;
+        _skiaPaint.StrokeJoin = StrokeJoin;
+        _skiaPaint.StrokeMiter = StrokeMiter;
+        _skiaPaint.StrokeWidth = StrokeThickness;
+        _skiaPaint.Style = IsStroke ? SKPaintStyle.Stroke : SKPaintStyle.Fill;
 
         if (PathEffect is not null)
         {
             PathEffect.CreateEffect(drawingContext);
-            skiaPaint.PathEffect = PathEffect.SKPathEffect;
+            _skiaPaint.PathEffect = PathEffect.SKPathEffect;
         }
 
         if (ImageFilter is not null)
         {
             ImageFilter.CreateFilter(drawingContext);
-            skiaPaint.ImageFilter = ImageFilter.SKImageFilter;
+            _skiaPaint.ImageFilter = ImageFilter.SKImageFilter;
         }
 
         var clip = GetClipRectangle(drawingContext.MotionCanvas);
@@ -176,7 +176,7 @@ public class BackImagePaintTask : PaintTask
             _drawingContext = drawingContext;
         }
 
-        drawingContext.Paint = skiaPaint;
+        drawingContext.Paint = _skiaPaint;
         drawingContext.PaintTask = this;
     }
 

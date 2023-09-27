@@ -38,4 +38,8 @@
     <None Include="images\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
+  </ItemGroup>
+
 </Project>
