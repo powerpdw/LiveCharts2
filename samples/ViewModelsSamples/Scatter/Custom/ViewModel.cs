@@ -33,8 +33,8 @@ public partial class ViewModel : ObservableObject
             new ScatterSeries<ObservablePoint, RoundedRectangleGeometry>
             {
                 Values = values1,
-                Stroke = null,
-                GeometrySize = 40,
+                //Stroke = null,
+                GeometrySize = 40
             },
 
             // You can also use SVG paths to draw the geometry

@@ -3,13 +3,13 @@
     <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
 
-    <TargetFrameworks>net6.0-windows10.0.19041</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows10.0.18362;net6.0-windows10.0.19041;</TargetFrameworks>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>LiveChartsCore.SkiaSharpView.WinUI</RootNamespace>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
 
-    <Version>2.0.0-rc1.2</Version>
+    <Version>2.0.0-rc1.2oek</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Description>Simple, flexible, interactive and powerful data visualization for WindowsAppSDK.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -18,7 +18,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
     <RepositoryUrl>https://github.com/beto-rodriguez/LiveCharts2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -62,6 +62,7 @@
     </Page>
     <Page Update="CartesianChart.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
     <Page Update="GeoMap.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

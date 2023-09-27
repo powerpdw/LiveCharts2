@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>11.0</LangVersion>
     
-    <TargetFrameworks>netstandard2.0;netcoreapp2.0;net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">
       $(TargetFrameworks);net6.0-windows10.0.19041;net462
     </TargetFrameworks>
@@ -17,7 +17,7 @@
 
     <AssemblyName>LiveChartsCore.SkiaSharpView</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView</RootNamespace>
-    <Version>2.0.0-rc1.2</Version>
+    <Version>2.0.0-rc1.2oek</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Description>Simple, flexible, interactive and powerful data visualization for .Net, this package contains the SkiaSharp backend.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -34,6 +34,8 @@
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 
@@ -10,6 +11,24 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
         Samples = ViewModelsSamples.Index.Samples;
+
+        //--->Scatter/BackImage sample is now implemented on WinUI only.
+        var idx = Array.FindLastIndex(Samples, item => item.StartsWith("Scatter"));
+        var insertIdx = idx + 1;
+        var listSamples = new List<string>();
+        listSamples.AddRange(Samples);
+        if (Samples.Length > (insertIdx + 1))
+        {
+            listSamples.Insert(idx + 1, "Scatter/BackImage");
+        }
+        else
+        {
+            listSamples.Add("Scatter/BackImage");
+        }
+        Samples = listSamples.ToArray();
+        //<---Scatter/BackImage sample is now implemented on WinUI only.
+
+
         grid.DataContext = this;
     }
 

@@ -35,6 +35,7 @@ public abstract class DrawMarginFrame<TDrawingContext> : ChartElement<TDrawingCo
 {
     private IPaint<TDrawingContext>? _stroke = null;
     private IPaint<TDrawingContext>? _fill = null;
+    private IPaint<TDrawingContext>? _backImage = null;
 
     /// <summary>
     /// Gets or sets the stroke.
@@ -61,6 +62,24 @@ public abstract class DrawMarginFrame<TDrawingContext> : ChartElement<TDrawingCo
     }
 
     /// <summary>
+    /// Gets or sets the background image.
+    /// </summary>
+    /// <value>
+    /// The background image.
+    /// </value>
+    public IPaint<TDrawingContext>? BackImage
+    {
+        get => _backImage;
+        set => SetPaintProperty(ref _backImage, value);
+    }
+
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
+    /// <returns></returns>
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>
     /// Gets the paint tasks.
     /// </summary>
     /// <returns></returns>
@@ -78,6 +97,16 @@ public abstract class DrawMarginFrame<TDrawingContext> : ChartElement<TDrawingCo
         base.OnPaintChanged(propertyName);
         OnPropertyChanged(propertyName);
     }
+
+    /// <summary>
+    /// Called when a property changes.
+    /// </summary>
+    /// <param name="propertyName">Name of the property.</param>
+    /// <returns></returns>
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
 
 /// <summary>
@@ -91,6 +120,7 @@ public abstract class DrawMarginFrame<TSizedGeometry, TDrawingContext> : DrawMar
 {
     private TSizedGeometry? _fillSizedGeometry;
     private TSizedGeometry? _strokeSizedGeometry;
+    private TSizedGeometry? _backImageGeometry;
     private bool _isInitialized = false;
 
     /// <summary>
@@ -130,6 +160,20 @@ public abstract class DrawMarginFrame<TSizedGeometry, TDrawingContext> : DrawMar
 
             Stroke.AddGeometryToPaintTask(chart.Canvas, _strokeSizedGeometry);
             chart.Canvas.AddDrawableTask(Stroke);
+        }
+
+        if (BackImage is not null)
+        {
+            BackImage.ZIndex = -2.5;
+            _backImageGeometry ??= new TSizedGeometry();
+
+            _backImageGeometry.X = drawLocation.X;
+            _backImageGeometry.Y = drawLocation.Y;
+            _backImageGeometry.Width = drawMarginSize.Width;
+            _backImageGeometry.Height = drawMarginSize.Height;
+
+            BackImage.AddGeometryToPaintTask(chart.Canvas, _backImageGeometry);
+            chart.Canvas.AddDrawableTask(BackImage);
         }
 
         if (!_isInitialized)
