@@ -172,7 +172,7 @@ public sealed partial class GeoMap : UserControl, IGeoMapView<SkiaSharpDrawingCo
     {
         get => (CoreMap<SkiaSharpDrawingContext>)GetValue(ActiveMapProperty);
         set => SetValue(ActiveMapProperty, value);
-    }
+    } 
 
     /// <inheritdoc cref="IGeoMapView{TDrawingContext}.Width"/>
     float IGeoMapView<SkiaSharpDrawingContext>.Width => (float)ActualWidth;
